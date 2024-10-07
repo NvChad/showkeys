@@ -75,6 +75,7 @@ M.redraw = function()
 end
 
 M.parse_key = function(char)
+  local opts = state.config
   local key = vim.fn.keytrans(char)
 
   if is_mouse(key) or key == "" then
@@ -85,23 +86,24 @@ M.parse_key = function(char)
   key = format_mapping(key)
 
   local arrlen = #state.keys
-  -- local last_key = state.keys[arrlen]
-  -- if last_key and key == last_key.key then
-  --   local count = (last_key.count or 1) + 1
-  --
-  --   state.keys[arrlen] = {
-  --     key = key,
-  --     txt = count .. " x " .. key,
-  --     count = count,
-  --   }
-  -- else
-  if arrlen == state.max then
-    table.remove(state.keys, 1)
+  local last_key = state.keys[arrlen]
+
+  if opts.show_count and last_key and key == last_key.key then
+    local count = (last_key.count or 1) + 1
+
+    state.keys[arrlen] = {
+      key = key,
+      txt = count .. " x " .. key,
+      count = count,
+    }
+  else
+    if arrlen == state.max then
+      table.remove(state.keys, 1)
+    end
+
+    table.insert(state.keys, { key = key, txt = key })
   end
 
-  table.insert(state.keys, { key = key, txt = key })
-  -- end
-  --
   M.redraw()
 end
 

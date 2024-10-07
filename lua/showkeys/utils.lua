@@ -93,11 +93,11 @@ M.parse_key = function(char)
 
     state.keys[arrlen] = {
       key = key,
-      txt = count .. " x " .. key,
+      txt = count .. " " .. key,
       count = count,
     }
   else
-    if arrlen == state.max then
+    if arrlen == opts.maxkeys then
       table.remove(state.keys, 1)
     end
 

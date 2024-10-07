@@ -3,10 +3,10 @@ local M = {
   keys = {},
   w = 40,
   h = 1,
-  max = 3,
 
   config = {
     timeout = 3,
+    maxkeys = 3,
     show_count = false,
   },
 }

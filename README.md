@@ -5,10 +5,18 @@ Eye-candy keys screencaster for Neovim
 ## Install
 
 ```lua
-{ "nvchad/showkeys", lazy = true }
+{
+    "nvchad/showkeys",
+    dependencies = { "NvChad/volt" },
+    lazy = true
+}
 ```
 
 ## Usage
+
+```
+:ShowkeysToggle
+```
 
 ```lua
   require("showkeys").toggle()

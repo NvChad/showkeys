@@ -5,6 +5,7 @@ Eye-candy keys screencaster for Neovim
 ## Install
 
 ```lua
+{ "nvchad/volt", lazy = true }
 { "nvchad/showkeys", lazy = true }
 ```
 

@@ -26,16 +26,16 @@ M.open = function()
   extmarks.run(state.buf, { h = state.h, w = state.w })
   vim.bo[state.buf].ft = "Showkeys"
 
-  local timer = vim.loop.new_timer()
+  state.timer = vim.loop.new_timer()
 
   state.on_key = vim.on_key(function(_, char)
     utils.parse_key(char)
 
-    if timer:is_active() then
-      timer:stop()
+    if state.timer:is_active() then
+      state.timer:stop()
     end
 
-    timer:start(
+    state.timer:start(
       state.config.timeout * 1000,
       0,
       vim.schedule_wrap(function()
@@ -47,6 +47,8 @@ M.open = function()
 end
 
 M.close = function()
+  state.timer:stop()
+  state.keys = {}
   vim.cmd("bd" .. state.buf)
   require("volt.state")[state.buf] = nil
   vim.on_key(nil, state.on_key)

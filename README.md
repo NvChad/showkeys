@@ -25,6 +25,7 @@ Check the [config table here](https://github.com/NvChad/showkeys/blob/main/lua/s
 ```lua
 {
   "nvchad/showkeys",
+  cmd = "ShowkeysToggle",
   opts = {
     timeout = 1,
     maxkeys = 5,

@@ -7,21 +7,9 @@ local is_mouse = function(x)
   return x:match "Mouse" or x:match "Scroll" or x:match "Drag" or x:match "Release"
 end
 
-local keystrs = {
-  ["<BS>"] = "󰁮 ",
-  ["<CR>"] = "󰘌",
-  ["<Space>"] = "󱁐",
-  ["<Up>"] = "󰁝",
-  ["<Down>"] = "󰁅",
-  ["<Left>"] = "󰁍",
-  ["<Right>"] = "󰁔",
-  ["<PageUp>"] = "Page 󰁝",
-  ["<PageDown>"] = "Page 󰁅",
-  ["<M>"] = "Alt",
-  ["<C>"] = "Ctrl",
-}
-
 local function format_mapping(str)
+  local keyformat = state.config.keyformat
+
   local str1 = string.match(str, "<(.-)>")
   if not str1 then
     return str
@@ -31,7 +19,7 @@ local function format_mapping(str)
 
   if before then
     before = "<" .. before .. ">"
-    before = keystrs[before] or before
+    before = keyformat[before] or before
     str1 = before .. " + " .. string.lower(after)
   end
 
@@ -75,6 +63,7 @@ M.redraw = function()
 end
 
 M.parse_key = function(char)
+  local keyformat = state.config.keyformat
   local opts = state.config
   local key = vim.fn.keytrans(char)
 
@@ -82,7 +71,7 @@ M.parse_key = function(char)
     return
   end
 
-  key = keystrs[key] or key
+  key = keyformat[key] or key
   key = format_mapping(key)
 
   local arrlen = #state.keys

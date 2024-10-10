@@ -5,7 +5,7 @@ local M = {
   h = 1,
 
   config = {
-    timeout = 3,
+    timeout = 3, -- in secs
     maxkeys = 3,
     show_count = false,
 

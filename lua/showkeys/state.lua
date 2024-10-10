@@ -8,6 +8,20 @@ local M = {
     timeout = 3,
     maxkeys = 3,
     show_count = false,
+
+    keyformat = {
+      ["<BS>"] = "󰁮 ",
+      ["<CR>"] = "󰘌",
+      ["<Space>"] = "󱁐",
+      ["<Up>"] = "󰁝",
+      ["<Down>"] = "󰁅",
+      ["<Left>"] = "󰁍",
+      ["<Right>"] = "󰁔",
+      ["<PageUp>"] = "Page 󰁝",
+      ["<PageDown>"] = "Page 󰁅",
+      ["<M>"] = "Alt",
+      ["<C>"] = "Ctrl",
+    },
   },
 }
 

@@ -8,10 +8,12 @@ local utils = require "showkeys.utils"
 
 state.ns = api.nvim_create_namespace "Showkeys"
 
-M.open = function(config)
-  vim.g.showkeys_shown = true
+M.setup = function(opts)
+  state.config = vim.tbl_deep_extend("force", state.config, opts or {})
+end
+
+M.open = function()
   state.buf = api.nvim_create_buf(false, true)
-  state.config = config
 
   extmarks.gen_data {
     { buf = state.buf, layout = layout, xpad = state.xpad, ns = state.ns },
@@ -34,7 +36,7 @@ M.open = function(config)
     end
 
     timer:start(
-      config.timeout * 1000,
+      state.config.timeout * 1000,
       0,
       vim.schedule_wrap(function()
         state.keys = {}
@@ -48,16 +50,13 @@ M.close = function()
   vim.cmd("bd" .. state.buf)
   require("volt.state")[state.buf] = nil
   vim.on_key(nil, state.on_key)
-  vim.g.showkeys_shown = false
 end
 
-M.toggle = function(opts)
-  opts = vim.tbl_deep_extend("force", state.config, opts or {})
-
+M.toggle = function()
   if state.visible then
     M.close()
   else
-    M.open(opts)
+    M.open()
   end
 
   state.visible = not state.visible

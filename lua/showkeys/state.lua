@@ -1,7 +1,7 @@
 local M = {
   xpad = 1,
   keys = {},
-  w = 40,
+  w = 1,
   h = 1,
 
   config = {

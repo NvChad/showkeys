@@ -14,9 +14,7 @@ https://github.com/user-attachments/assets/b789fa38-670c-452d-bd6f-431340f9e7f0
 
 ## Usage
 
-```lua
-  require("showkeys").toggle()
-```
+`ShowkeysToggle`
 
 ## Config
 

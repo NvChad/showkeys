@@ -38,6 +38,9 @@ M.open = function()
 
   api.nvim_set_hl(0, "SkInactive", { default = true, link = "Visual" })
   api.nvim_set_hl(0, "SkActive", { default = true, link = "pmenusel" })
+
+  local augroup = api.nvim_create_augroup("ShowkeysAu", { clear = true })
+  api.nvim_create_autocmd("VimResized", { group = augroup, callback = utils.redraw })
 end
 
 M.close = function()
@@ -45,6 +48,7 @@ M.close = function()
   state.keys = {}
   vim.cmd("bd" .. state.buf)
   vim.on_key(nil, state.on_key)
+  api.nvim_del_augroup_by_name "ShowkeysAu"
 end
 
 M.toggle = function()

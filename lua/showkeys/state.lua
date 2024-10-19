@@ -3,6 +3,7 @@ local M = {
   keys = {},
   w = 1,
   h = 1,
+  extmark_id = nil,
 
   config = {
     timeout = 3, -- in secs

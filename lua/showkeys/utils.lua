@@ -1,7 +1,6 @@
 local M = {}
 local api = vim.api
 local state = require "showkeys.state"
-local extmarks = require "volt"
 
 local is_mouse = function(x)
   return x:match "Mouse" or x:match "Scroll" or x:match "Drag" or x:match "Release"
@@ -24,12 +23,6 @@ local function format_mapping(str)
   end
 
   local str2 = string.match(str, ">(.+)")
-
-  -- if not before then
-  --   str1 = "<" .. str1 .. ">"
-  --   str1 = keystrs[str1] or str1
-  -- end
-
   return str1 .. (str2 and (" " .. str2) or "")
 end
 
@@ -57,9 +50,24 @@ local update_win_w = function()
   api.nvim_win_set_config(state.win, M.gen_winconfig())
 end
 
+M.draw = function()
+  local virt_txts = require "showkeys.ui"()
+
+  if not state.extmark_id then
+    api.nvim_buf_set_lines(state.buf, 0, -1, false, { string.rep(" ", state.w) })
+  end
+
+  local opts = { virt_text = virt_txts, virt_text_pos = "overlay", id = state.extmark_id }
+  local id = api.nvim_buf_set_extmark(state.buf, state.ns, 0, 1, opts)
+
+  if not state.extmark_id then
+    state.extmark_id = id
+  end
+end
+
 M.redraw = function()
   update_win_w()
-  extmarks.redraw(state.buf, "keys")
+  M.draw()
 end
 
 M.parse_key = function(char)

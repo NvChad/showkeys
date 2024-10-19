@@ -3,7 +3,7 @@ local api = vim.api
 
 local state = require "showkeys.state"
 local layout = require "showkeys.layout"
-local extmarks = require "volt"
+local volt = require "volt"
 local utils = require "showkeys.utils"
 
 state.ns = api.nvim_create_namespace "Showkeys"
@@ -15,15 +15,15 @@ end
 M.open = function()
   state.buf = api.nvim_create_buf(false, true)
 
-  extmarks.gen_data {
+  volt.gen_data {
     { buf = state.buf, layout = layout, xpad = state.xpad, ns = state.ns },
   }
 
   state.win = api.nvim_open_win(state.buf, false, utils.gen_winconfig())
   api.nvim_win_set_hl_ns(state.win, state.ns)
-  vim.wo[state.win].winhighlight = "FloatBorder:Comment"
+  vim.wo[state.win].winhighlight = "FloatBorder:Comment,Normalfloat:Normal"
 
-  extmarks.run(state.buf, { h = state.h, w = state.w })
+  volt.run(state.buf, { h = state.h, w = state.w })
   vim.bo[state.buf].ft = "Showkeys"
 
   state.timer = vim.loop.new_timer()

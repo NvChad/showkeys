@@ -27,16 +27,23 @@ local function format_mapping(str)
 end
 
 M.gen_winconfig = function()
-  return {
-    focusable = false,
-    row = vim.o.lines - 3 - (state.h + 2),
-    col = vim.o.columns - state.w - 3,
-    width = state.w,
-    height = state.h,
-    relative = "editor",
-    style = "minimal",
-    border = "single",
-  }
+  local lines = vim.o.lines
+  local cols = vim.o.columns
+  state.winopts.width = state.w
+
+  local pos = state.config.position
+
+  if string.find(pos, "bottom") then
+    state.winopts.row = lines - 5
+  end
+
+  if pos == "top-right" then
+    state.winopts.col = cols - state.w - 3
+  elseif pos == "top-center" or pos == "bottom-center" then
+    state.winopts.col = math.floor(cols / 2) - math.floor(state.w / 2)
+  elseif pos == "bottom-right" then
+    state.winopts.col = cols - state.w - 3
+  end
 end
 
 local update_win_w = function()
@@ -47,7 +54,8 @@ local update_win_w = function()
     state.w = state.w + vim.fn.strwidth(v.txt)
   end
 
-  api.nvim_win_set_config(state.win, M.gen_winconfig())
+  M.gen_winconfig()
+  api.nvim_win_set_config(state.win, state.winopts)
 end
 
 M.draw = function()

@@ -12,7 +12,8 @@ end
 
 M.open = function()
   state.buf = api.nvim_create_buf(false, true)
-  state.win = api.nvim_open_win(state.buf, false, utils.gen_winconfig())
+  utils.gen_winconfig()
+  state.win = api.nvim_open_win(state.buf, false, state.winopts)
   api.nvim_win_set_hl_ns(state.win, state.ns)
   vim.wo[state.win].winhighlight = "FloatBorder:Comment,Normalfloat:Normal"
   vim.bo[state.buf].ft = "Showkeys"

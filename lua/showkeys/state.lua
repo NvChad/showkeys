@@ -10,7 +10,7 @@ local M = {
     style = "minimal",
     border = "single",
     height = 1,
-    row = 0,
+    row = 1,
     col = 0,
   },
 

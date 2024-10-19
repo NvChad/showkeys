@@ -1,10 +1,9 @@
-
-# Showkeys (WIP)
+# Showkeys
 
 Eye-candy keys screencaster for Neovim
 
-https://github.com/user-attachments/assets/b789fa38-670c-452d-bd6f-431340f9e7f0
-
+https://github.com/user-attachments/assets/a85d6546-b457-49b6-aca6-c9b0410d3512
+  
 ## Install
 
 ```lua

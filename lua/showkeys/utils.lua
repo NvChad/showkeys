@@ -62,7 +62,7 @@ M.draw = function()
   local virt_txts = require "showkeys.ui"()
 
   if not state.extmark_id then
-    api.nvim_buf_set_lines(state.buf, 0, -1, false, { string.rep(" ", state.w) })
+    api.nvim_buf_set_lines(state.buf, 0, -1, false, { " " })
   end
 
   local opts = { virt_text = virt_txts, virt_text_pos = "overlay", id = state.extmark_id }

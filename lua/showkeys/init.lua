@@ -46,6 +46,8 @@ end
 M.close = function()
   state.timer:stop()
   state.keys = {}
+  state.w = 1
+  state.extmark_id = nil
   vim.cmd("bd" .. state.buf)
   vim.on_key(nil, state.on_key)
   api.nvim_del_augroup_by_name "ShowkeysAu"

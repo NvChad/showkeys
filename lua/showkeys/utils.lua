@@ -48,7 +48,7 @@ end
 
 local update_win_w = function()
   local keyslen = #state.keys
-  state.w = keyslen + state.xpad + (2 * keyslen) -- 2 spaces around each key
+  state.w = keyslen + 1 + (2 * keyslen) -- 2 spaces around each key
 
   for _, v in ipairs(state.keys) do
     state.w = state.w + vim.fn.strwidth(v.txt)

@@ -1,5 +1,4 @@
 local M = {
-  xpad = 1,
   keys = {},
   w = 1,
   extmark_id = nil,

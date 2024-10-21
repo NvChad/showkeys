@@ -11,6 +11,7 @@ M.setup = function(opts)
 end
 
 M.open = function()
+  state.visible = true
   state.buf = api.nvim_create_buf(false, true)
   utils.gen_winconfig()
   state.win = api.nvim_open_win(state.buf, false, state.winopts)
@@ -45,18 +46,18 @@ M.open = function()
 end
 
 M.close = function()
+  api.nvim_del_augroup_by_name "ShowkeysAu"
   state.timer:stop()
   state.keys = {}
   state.w = 1
   state.extmark_id = nil
   vim.cmd("bd" .. state.buf)
   vim.on_key(nil, state.on_key)
-  api.nvim_del_augroup_by_name "ShowkeysAu"
+  state.visible = false
 end
 
 M.toggle = function()
   M[state.visible and "close" or "open"]()
-  state.visible = not state.visible
 end
 
 return M

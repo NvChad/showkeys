@@ -79,15 +79,21 @@ M.redraw = function()
 end
 
 M.parse_key = function(char)
-  local keyformat = state.config.keyformat
   local opts = state.config
+
+  if vim.tbl_contains(opts.excluded_modes, vim.api.nvim_get_mode().mode) then
+    state.keys = {}
+    M.redraw()
+    return
+  end
+
   local key = vim.fn.keytrans(char)
 
   if is_mouse(key) or key == "" then
     return
   end
 
-  key = keyformat[key] or key
+  key = opts.keyformat[key] or key
   key = format_mapping(key)
 
   local arrlen = #state.keys

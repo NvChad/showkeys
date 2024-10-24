@@ -17,6 +17,7 @@ local M = {
     timeout = 3, -- in secs
     maxkeys = 3,
     show_count = false,
+    excluded_modes = {}, -- example: {"i"}
 
     -- bottom-left, bottom-right, bottom-center, top-left, top-right, top-center
     position = "bottom-right",

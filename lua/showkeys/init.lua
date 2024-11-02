@@ -14,25 +14,26 @@ M.open = function()
   state.visible = true
   state.buf = api.nvim_create_buf(false, true)
   utils.gen_winconfig()
-  state.win = api.nvim_open_win(state.buf, false, state.winopts)
-  api.nvim_win_set_hl_ns(state.win, state.ns)
-  vim.wo[state.win].winhighlight = "FloatBorder:Comment,Normalfloat:Normal"
   vim.bo[state.buf].ft = "Showkeys"
 
   state.timer = vim.loop.new_timer()
   state.on_key = vim.on_key(function(_, char)
-    utils.parse_key(char)
-
-    if state.timer:is_active() then
-      state.timer:stop()
+    if not state.win then
+      state.win = api.nvim_open_win(state.buf, false, state.winopts)
+      vim.wo[state.win].winhl = "FloatBorder:Comment,Normalfloat:Normal"
     end
 
+    utils.parse_key(char)
+
+    state.timer:stop()
     state.timer:start(
       state.config.timeout * 1000,
       0,
       vim.schedule_wrap(function()
         state.keys = {}
-        utils.redraw()
+        local tmp = state.win
+        state.win = nil
+        api.nvim_win_close(tmp, true)
       end)
     )
   end)
@@ -42,7 +43,16 @@ M.open = function()
 
   local augroup = api.nvim_create_augroup("ShowkeysAu", { clear = true })
   api.nvim_create_autocmd("VimResized", { group = augroup, callback = utils.redraw })
-  api.nvim_create_autocmd("WinClosed", { group = augroup, callback = M.close, buffer = state.buf })
+
+  api.nvim_create_autocmd("WinClosed", {
+    group = augroup,
+    callback = function()
+      if state.win then
+        M.close()
+      end
+    end,
+    buffer = state.buf,
+  })
 end
 
 M.close = function()
@@ -54,6 +64,7 @@ M.close = function()
   vim.cmd("bd" .. state.buf)
   vim.on_key(nil, state.on_key)
   state.visible = false
+  state.win = nil
 end
 
 M.toggle = function()

@@ -29,20 +29,20 @@ end
 M.gen_winconfig = function()
   local lines = vim.o.lines
   local cols = vim.o.columns
-  state.winopts.width = state.w
+  state.config.winopts.width = state.w
 
   local pos = state.config.position
 
   if string.find(pos, "bottom") then
-    state.winopts.row = lines - 5
+    state.config.winopts.row = lines - 5
   end
 
   if pos == "top-right" then
-    state.winopts.col = cols - state.w - 3
+    state.config.winopts.col = cols - state.w - 3
   elseif pos == "top-center" or pos == "bottom-center" then
-    state.winopts.col = math.floor(cols / 2) - math.floor(state.w / 2)
+    state.config.winopts.col = math.floor(cols / 2) - math.floor(state.w / 2)
   elseif pos == "bottom-right" then
-    state.winopts.col = cols - state.w - 3
+    state.config.winopts.col = cols - state.w - 3
   end
 end
 
@@ -55,7 +55,7 @@ local update_win_w = function()
   end
 
   M.gen_winconfig()
-  api.nvim_win_set_config(state.win, state.winopts)
+  api.nvim_win_set_config(state.win, state.config.winopts)
 end
 
 M.draw = function()

@@ -3,17 +3,18 @@ local M = {
   w = 1,
   extmark_id = nil,
 
-  winopts = {
-    focusable = false,
-    relative = "editor",
-    style = "minimal",
-    border = "single",
-    height = 1,
-    row = 1,
-    col = 0,
-  },
-
   config = {
+
+    winopts = {
+      focusable = false,
+      relative = "editor",
+      style = "minimal",
+      border = "single",
+      height = 1,
+      row = 1,
+      col = 0,
+    },
+
     timeout = 3, -- in secs
     maxkeys = 3,
     show_count = false,

@@ -7,7 +7,7 @@ https://github.com/user-attachments/assets/a85d6546-b457-49b6-aca6-c9b0410d3512
 ## Install
 
 ```lua
-{ "siduck/showkeys", cmd = "ShowkeysToggle" }
+{ "nvzone/showkeys", cmd = "ShowkeysToggle" }
 ```
 
 ## Usage

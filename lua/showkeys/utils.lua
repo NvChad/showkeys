@@ -55,7 +55,9 @@ local update_win_w = function()
   end
 
   M.gen_winconfig()
-  api.nvim_win_set_config(state.win, state.config.winopts)
+  if state.win then
+    api.nvim_win_set_config(state.win, state.config.winopts)
+  end
 end
 
 M.draw = function()

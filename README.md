@@ -7,7 +7,7 @@ https://github.com/user-attachments/assets/a85d6546-b457-49b6-aca6-c9b0410d3512
 ## Install
 
 ```lua
-{ "nvchad/showkeys", cmd = "ShowkeysToggle" }
+{ "nvzone/showkeys", cmd = "ShowkeysToggle" }
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ Check the [config table here](https://github.com/NvChad/showkeys/blob/main/lua/s
 
 ```lua
 {
-  "nvchad/showkeys",
+  "siduck/showkeys",
   cmd = "ShowkeysToggle",
   opts = {
     timeout = 1,

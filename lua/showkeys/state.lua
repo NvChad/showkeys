@@ -4,7 +4,7 @@ local M = {
   extmark_id = nil,
 
   config = {
-
+    -- :h nvim_open_win params
     winopts = {
       focusable = false,
       relative = "editor",

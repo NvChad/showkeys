@@ -44,6 +44,16 @@ M.open = function()
   local augroup = api.nvim_create_augroup("ShowkeysAu", { clear = true })
   api.nvim_create_autocmd("VimResized", { group = augroup, callback = utils.redraw })
 
+	api.nvim_create_autocmd("TabEnter", {
+		group = augroup,
+		callback = function()
+			if state.win then
+				M.close()
+				M.open()
+			end
+		end,
+	})
+
   api.nvim_create_autocmd("WinClosed", {
     group = augroup,
     callback = function()

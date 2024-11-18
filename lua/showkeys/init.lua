@@ -42,7 +42,15 @@ M.open = function()
   api.nvim_set_hl(0, "SkActive", { default = true, link = "pmenusel" })
 
   local augroup = api.nvim_create_augroup("ShowkeysAu", { clear = true })
-  api.nvim_create_autocmd("VimResized", { group = augroup, callback = utils.redraw })
+
+  api.nvim_create_autocmd("VimResized", {
+    group = augroup,
+    callback = function()
+      if state.win then
+        utils.redraw()
+      end
+    end,
+  })
 
   api.nvim_create_autocmd("TabEnter", {
     group = augroup,

@@ -67,6 +67,7 @@ M.open = function()
     callback = function()
       if state.win then
         M.close()
+        M.open()
       end
     end,
     buffer = state.buf,

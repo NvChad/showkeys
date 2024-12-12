@@ -90,4 +90,8 @@ M.toggle = function()
   M[state.visible and "close" or "open"]()
 end
 
+M.visible = function()
+  return state.visible
+end
+
 return M
